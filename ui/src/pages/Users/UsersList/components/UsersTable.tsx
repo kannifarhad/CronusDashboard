@@ -16,7 +16,7 @@ const options = {
   filterType: "dropdown",
   responsive: "standard",
   className: "usersListTable",
-  elevation: 0,
+  elevation: 1,
   rowsPerPage: 10,
   searchPlaceholder: "Type any information about user...",
   textLabels: {

@@ -1,5 +1,5 @@
 import { createTheme, Theme } from "@mui/material/styles";
-import { lightPalette, darkPalette, ThemeCollectionType } from './palettes';
+import { lightPalette, darkPalette, ThemeCollectionType } from "./palettes";
 import { deepmerge } from "@mui/utils";
 import componentsOverride from "./componentsOverride";
 
@@ -25,70 +25,81 @@ const typography = {
 };
 
 // Create themes
-export const lightTheme: Theme = createTheme(deepmerge({
-  typography,
-  palette: {
-    mode: "light",
-    primary: { main: lightPalette.mainMiddleColor },
-    background: { default: lightPalette.backgroundColor },
-  },
-  components:{
-    MuiButton:{
-      styleOverrides:{
-        root:{
-          cursor: "pointer"
-        },
-        outlined:{
-          borderColor: lightPalette.colors.default.light,
-          backgroundColor: lightPalette.backgroundColor,
+export const lightTheme: Theme = createTheme(
+  deepmerge(
+    {
+      typography,
+      palette: {
+        mode: "light",
+        primary: { main: lightPalette.mainMiddleColor },
+        background: { default: lightPalette.backgroundColor },
+      },
+      components: {
+        // ...componentsOverride,
+        MuiButton: {
+          styleOverrides: {
+            root: {
+              cursor: "pointer",
+            },
+            outlined: {
+              borderColor: lightPalette.colors.default.light,
+              backgroundColor: lightPalette.backgroundColor,
+            },
+          },
         },
       },
-    }
-  },
-  customStyles: lightPalette,
-}, componentsOverride));
+      customStyles: lightPalette,
+    },
+    { components: componentsOverride }
+  )
+);
 
-export const darkTheme: Theme = createTheme(deepmerge({
-  typography,
-  palette: {
-    mode: "dark",
-    primary: { main: darkPalette.mainMiddleColor },
-    background: { default: darkPalette.backgroundColor },
-  },
-  components:{
-    MuiPaper:{
-      styleOverrides: {
-        root:{
-          background:"#364553",
-        }
-      }
-    },
-    MuiInput:{
-      styleOverrides:{
-        input:{
-          outline: "1px"
-        }
-      }
-    },
-    MuiCssBaseline:{
-      styleOverrides:{
-        "input:-webkit-autofill": {
-            WebkitBoxShadow: "0 0 0 100px #295b2d3b inset !important",
+export const darkTheme: Theme = createTheme(
+  deepmerge(
+    {
+      typography,
+      palette: {
+        mode: "dark",
+        primary: { main: darkPalette.mainMiddleColor },
+        background: { default: darkPalette.backgroundColor },
+      },
+      components: {
+        MuiPaper: {
+          styleOverrides: {
+            root: {
+              background: "#364553",
+            },
           },
-          "input:-webkit-autofill:hover": {
-            WebkitBoxShadow: " 0 0 0 100px #295b2d3b inset !important",
-          },
-          "input:-webkit-autofill:focus": {
-            WebkitBoxShadow: " 0 0 0 100px #295b2d3b inset !important",
-          },
-        ':root':{
-          colorScheme: "dark"
         },
-        body:{
-          colorScheme: "dark"
+        MuiInput: {
+          styleOverrides: {
+            input: {
+              outline: "1px",
+            },
+          },
         },
-      }
-    }
-  },
-  customStyles: darkPalette,
-}, componentsOverride));
+        MuiCssBaseline: {
+          styleOverrides: {
+            "input:-webkit-autofill": {
+              WebkitBoxShadow: "0 0 0 100px #295b2d3b inset !important",
+            },
+            "input:-webkit-autofill:hover": {
+              WebkitBoxShadow: " 0 0 0 100px #295b2d3b inset !important",
+            },
+            "input:-webkit-autofill:focus": {
+              WebkitBoxShadow: " 0 0 0 100px #295b2d3b inset !important",
+            },
+            ":root": {
+              colorScheme: "dark",
+            },
+            body: {
+              colorScheme: "dark",
+            },
+          },
+        },
+      },
+      customStyles: darkPalette,
+    },
+    { components: componentsOverride }
+  )
+);

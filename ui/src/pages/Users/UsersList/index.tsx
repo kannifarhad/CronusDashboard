@@ -1,13 +1,18 @@
-import { Grid } from "@mui/material";
+import { Grid2 as Grid } from "@mui/material";
 import ContentWrapper from "../../Dashboard/components/Layout/ContentWrapper";
 import { memo } from "react";
 import UsersListBlock from "./components/UsersList";
+import { Helmet } from "react-helmet-async";
 
 function UsersListPage(props) {
+  console.log("title", props);
   return (
     <ContentWrapper {...props}>
+      <Helmet>
+        <title>{`${props.title} - ${props.description} | Cronus Dashboard`}</title>
+      </Helmet>
       <Grid container>
-        <Grid item xs={12} style={{padding: '0px 20px'}}>
+        <Grid size={8} style={{ padding: "20px" }}>
           <UsersListBlock />
         </Grid>
       </Grid>

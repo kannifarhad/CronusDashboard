@@ -1,11 +1,11 @@
 import React from "react";
 // import CalendarWidget from '../../components/Widgets/CalendarWidget';
-import ContentWrapper from "./components/Layout/ContentWrapper";
-import { DashBoardInfoBlock } from "../../components/Molecules";
+import ContentWrapper from "../Layout/ContentWrapper";
+import { DashBoardInfoBlock } from "../../../../components/Molecules";
 import { Grid } from "@mui/material";
 import { Helmet } from "react-helmet-async";
 import { useTranslation, Trans } from "react-i18next";
-import Clock from "./components/Clock";
+import Clock from "../Clock";
 
 export default function Dashboard({ title, description }) {
   const { t } = useTranslation();
@@ -16,54 +16,6 @@ export default function Dashboard({ title, description }) {
       </Helmet>
 
       <Grid container>
-        <Grid item xs={6} style={{ padding: "20px 10px" }}>
-          <Grid container >
-            <Grid item xs={6} style={{ padding: "0px 10px" }}>
-              <DashBoardInfoBlock
-                mainIcon="fad fa-newspaper"
-                title={<Trans>Published Posts</Trans>}
-                description="205"
-                footerIcon="icon-link"
-                foooterText={<Trans>View All Posts</Trans>}
-                color="yellow"
-              />
-            </Grid>
-            <Grid item xs={6} style={{ padding: "0px 10px", marginBottom: "20px" }}>
-              <DashBoardInfoBlock
-                mainIcon="fad fa-folder-tree"
-                title={<Trans>Post Categories</Trans>}
-                description="20"
-                footerIcon="icon-link"
-                foooterText={<Trans>View All Post Categories</Trans>}
-                color="green"
-              />
-            </Grid>
-            <Grid item xs={6} style={{ padding: "0px 10px" }}>
-              <DashBoardInfoBlock
-                mainIcon="fad fa-users"
-                title={<Trans>Users</Trans>}
-                description="5"
-                footerIcon="icon-link"
-                foooterText={<Trans>View All Users</Trans>}
-                color="red"
-              />
-            </Grid>
-            <Grid item xs={6} style={{ padding: "0px 10px" }}>
-              <DashBoardInfoBlock
-                mainIcon="fad fa-server"
-                title={<Trans>Used Space</Trans>}
-                description="49/50 GB"
-                footerIcon="icon-warning"
-                foooterText={
-                  <Trans>
-                    For increasing server space contact administrator
-                  </Trans>
-                }
-                color="blue"
-              />
-            </Grid>
-          </Grid>
-        </Grid>
 
         <Grid item xs={6} style={{ display: "flex", justifyContent: "center" }}>
             <Clock />

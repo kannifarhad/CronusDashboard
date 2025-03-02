@@ -1,22 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Grid, Paper } from "@mui/material";
+import { Grid2 as Grid, Paper } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AllUsers } from "../routes";
 import { addUserSchema, AddUserType } from "../fromSchemas";
 import AvatarEdit from "../components/AvatarEdit";
-import {
-  DatePicker,
-  InputField,
-  PasswordField,
-  SelectWithSearch,
-  SimpleSelect,
-  ButtonGroup,
-  BlockBox,
-  PhoneField
-} from "src/components/Elements";
-
+import { DatePicker, InputField, PasswordField, SelectWithSearch, SimpleSelect, ButtonGroup, BlockBox, PhoneField } from "src/components/Elements";
 
 const UserAddForm: React.FC<{
   addUser: Function;
@@ -74,47 +64,22 @@ const UserAddForm: React.FC<{
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={2}>
-        <Grid item xs={6}>
-          <BlockBox
-            title="Main Information"
-            subtitle="The required fields must be filled."
-            icon={<span className="fad fa-id-badge" />}
-          >
+        <Grid size={6}>
+          <BlockBox title="Main Information" subtitle="The required fields must be filled." icon={<span className="fad fa-id-badge" />}>
             <Grid container spacing={2} style={{ padding: "20px" }}>
-              <Grid item xs={6}>
-                <Controller
-                  name="name"
-                  control={control}
-                  render={({ field }) => (
-                    <InputField
-                      {...field}
-                      label="Full name"
-                      error={!!errors.name}
-                      helperText={errors.name?.message}
-                    />
-                  )}
-                />
+              <Grid size={6}>
+                <Controller name="name" control={control} render={({ field }) => <InputField {...field} label="Full name" error={!!errors.name} helperText={errors.name?.message} />} />
               </Grid>
 
-              <Grid item xs={6}>
+              <Grid size={6}>
                 <Controller
                   name="login"
                   control={control}
-                  render={({ field }) => (
-                    <InputField
-                      {...field}
-                      label="E-mail"
-                      error={!!errors.login}
-                      helperText={
-                        errors.login?.message ||
-                        "This would be used as login as well"
-                      }
-                    />
-                  )}
+                  render={({ field }) => <InputField {...field} label="E-mail" error={!!errors.login} helperText={errors.login?.message || "This would be used as login as well"} />}
                 />
               </Grid>
 
-              <Grid item xs={6}>
+              <Grid size={6}>
                 <Controller
                   name="phone"
                   control={control}
@@ -125,69 +90,35 @@ const UserAddForm: React.FC<{
                       error={!!errors.phone}
                       helperText={errors.phone?.message}
                       defaultCountry="US"
-                      onChange={(phone)=> field.onChange(phone ? `${phone.country.code}${phone.phoneNumber}`: null)}
+                      onChange={(phone) => field.onChange(phone ? `${phone.country.code}${phone.phoneNumber}` : null)}
                     />
                   )}
                 />
               </Grid>
 
-              <Grid item xs={6}>
-                <Controller
-                  name="address"
-                  control={control}
-                  render={({ field }) => (
-                    <InputField
-                      {...field}
-                      label="Address"
-                      error={!!errors.address}
-                      helperText={errors.address?.message}
-                    />
-                  )}
-                />
+              <Grid size={6}>
+                <Controller name="address" control={control} render={({ field }) => <InputField {...field} label="Address" error={!!errors.address} helperText={errors.address?.message} />} />
               </Grid>
 
-              <Grid item>
-                <Controller
-                  name="image"
-                  control={control}
-                  render={({ field }) => (
-                    <AvatarEdit 
-                      src={field.value}
-                      size={105}
-                      onChange={field.onChange}
-                    />
-                  )}
-                />
+              <Grid>
+                <Controller name="image" control={control} render={({ field }) => <AvatarEdit src={field.value} size={105} onChange={field.onChange} />} />
               </Grid>
 
-              <Grid item flexGrow={1}>
+              <Grid flexGrow={1}>
                 <Controller
                   name="about"
                   control={control}
-                  render={({ field }) => (
-                    <InputField
-                      {...field}
-                      label="About"
-                      rows={4}
-                      multiline
-                      error={!!errors.about}
-                      helperText={errors.about?.message}
-                    />
-                  )}
+                  render={({ field }) => <InputField {...field} label="About" rows={4} multiline error={!!errors.about} helperText={errors.about?.message} />}
                 />
               </Grid>
             </Grid>
           </BlockBox>
         </Grid>
 
-        <Grid item xs={6}>
-          <BlockBox
-            title="Access & Roles"
-            subtitle="The required fields must be filled."
-            icon={<span className="fad fa-key" />}
-          >
+        <Grid size={6}>
+          <BlockBox title="Access & Roles" subtitle="The required fields must be filled." icon={<span className="fad fa-key" />}>
             <Grid container spacing={2} style={{ padding: "20px" }}>
-              <Grid item xs={4}>
+              <Grid size={4}>
                 <Controller
                   name="status"
                   control={control}
@@ -211,7 +142,7 @@ const UserAddForm: React.FC<{
                   )}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid size={6}>
                 <Controller
                   name="role"
                   control={control}
@@ -229,16 +160,13 @@ const UserAddForm: React.FC<{
                         },
                       ]}
                       label="Role"
-                      helperText={
-                        errors.role?.message ||
-                        "Depending on role additional data may be required"
-                      }
+                      helperText={errors.role?.message || "Depending on role additional data may be required"}
                       error={!!errors.role}
                     />
                   )}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={12}>
                 <Controller
                   name="groupId"
                   control={control}
@@ -247,53 +175,33 @@ const UserAddForm: React.FC<{
                       {...field}
                       items={userGroupsList}
                       label="User Group"
-                      helperText={
-                        errors.groupId?.message ||
-                        "This would help define access to the system modules"
-                      }
+                      helperText={errors.groupId?.message || "This would help define access to the system modules"}
                       error={!!errors.groupId}
                     />
                   )}
                 />
               </Grid>
 
-              <Grid item xs={6}>
+              <Grid size={6}>
                 <Controller
                   name="password"
                   control={control}
-                  render={({ field }) => (
-                    <PasswordField
-                      {...field}
-                      label="Password"
-                      error={!!errors.password}
-                      helperText={
-                        errors.password?.message ||
-                        "Should be at least 8 symbols"
-                      }
-                    />
-                  )}
+                  render={({ field }) => <PasswordField {...field} label="Password" error={!!errors.password} helperText={errors.password?.message || "Should be at least 8 symbols"} />}
                 />
               </Grid>
 
-              <Grid item xs={6}>
+              <Grid size={6}>
                 <Controller
                   name="passwordRepeat"
                   control={control}
-                  render={({ field }) => (
-                    <PasswordField
-                      {...field}
-                      label="Repeat Password"
-                      error={!!errors.passwordRepeat}
-                      helperText={errors.passwordRepeat?.message}
-                    />
-                  )}
+                  render={({ field }) => <PasswordField {...field} label="Repeat Password" error={!!errors.passwordRepeat} helperText={errors.passwordRepeat?.message} />}
                 />
               </Grid>
             </Grid>
           </BlockBox>
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid size={12}>
           <Paper style={{ padding: "10px" }} elevation={0}>
             <ButtonGroup
               buttonList={[

@@ -1,7 +1,7 @@
 import React, { useRef, memo, useMemo, useCallback } from "react";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
-import { List, ListItem } from "@mui/material";
+import { List, ListItemButton, ListItem } from "@mui/material";
 import { SiteRoute } from "../../../../routes/types";
 
 interface MenuItemProps {
@@ -56,7 +56,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ item, currentUrl, userRole }) => {
       {hasChildren ? (
         <>
           <ListItem
-            button
+            
             className="asideMenuToggle"
             onClick={handleMouseClick}
           >
@@ -67,7 +67,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ item, currentUrl, userRole }) => {
           <MenuSubmenu item={item} currentUrl={currentUrl} />
         </>
       ) : (
-        <ListItem button>
+        <ListItem>
           <Link to={item.getPath({})}>
             <MenuItemText item={item} />
           </Link>

@@ -1,5 +1,5 @@
-import ConsumerDashboard from "./DashboardConsumer";
-import AdminDashboard from "./DashboardAdmin";
+import ConsumerDashboard from "./components/RoleBashboards/DashboardConsumer";
+import AdminDashboard from "./components/RoleBashboards/DashboardAdmin";
 import { selectUser } from "../../store/auth";
 import { useSelector } from "react-redux";
 import {UserRole} from "../../types";

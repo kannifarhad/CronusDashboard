@@ -15,7 +15,6 @@ export default function AccessDenied() {
         <title>{`${t('Access Denied')} | Cronus Dashboard`}</title>
       </Helmet>
 
-
       <Box className="whiteBlock" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
           <Box className="accessDenied" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
               <Box className="image">

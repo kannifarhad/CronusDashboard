@@ -14,6 +14,16 @@ const componentsOverride: Components<Omit<Theme, "components">> = {
       },
     },
   },
+  MuiPaper:{
+    styleOverrides:{
+      elevation1:{
+        boxShadow: "0 0 13px 0 rgba(45, 45, 75, 0.05)",
+      },
+      rounded:{
+        borderRadius:"7px"
+      }
+    }
+  },
   MuiButtonBase: {
     styleOverrides: {
       root: {
@@ -69,72 +79,6 @@ const componentsOverride: Components<Omit<Theme, "components">> = {
       select: {
         "&:focus": {
           background: "var(--mainLightColor) !important",
-        },
-      },
-    },
-  },
-  MuiFormControl: {
-    styleOverrides: {
-      root: {
-        color: "var(--headlineColor)",
-        "& .MuiFormHelperText-root": {
-          fontSize: "0.61em",
-        },
-        "& .MuiInputLabel-outlined": {
-          transform: "translate(14px, 22px) scale(1)",
-        },
-        "& .MuiInputLabel-root": {
-          fontSize: "0.8em",
-          "&.MuiInputLabel-shrink": {
-            fontSize: "0.9em",
-          },
-          "&.Mui-focused": {
-            color: "var(--mainMiddleColor)",
-            "& fieldset": {
-              borderColor: "var(--mainMiddleColor) !important",
-              borderWidth: "1px !important",
-            },
-          },
-        },
-        "& .MuiInputBase-root": {
-          "&.Mui-focused fieldset": {
-            borderColor: "var(--mainMiddleColor) !important",
-            borderWidth: "1px !important",
-          },
-          "& .MuiInputBase-input": {
-            fontSize: "0.8em",
-          },
-        },
-        "& label": {
-          color: "#666",
-        },
-        "& legend": {
-          width: "auto",
-        },
-      },
-    },
-  },
-  MuiInputLabel: {
-    styleOverrides: {
-      outlined: {
-        transform: "translate(20px, 20px) scale(1)",
-      },
-    },
-  },
-  MuiInput: {
-    styleOverrides: {
-      underline: {
-        "&:after, &:hover:not(.Mui-disabled):before": {
-          // borderBottom: "1px solid var(--mainMiddleColor) !important",
-        },
-      },
-    },
-  },
-  MuiFilledInput: {
-    styleOverrides: {
-      underline: {
-        "&:after": {
-          // borderBottom: "1px solid var(--mainMiddleColor) !important",
         },
       },
     },

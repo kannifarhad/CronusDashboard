@@ -68,7 +68,7 @@ export const BlockBox = ({
   ...rest
 }: BlockBoxProps) => {
   return (
-    <Paper elevation={0} {...rest}>
+    <Paper elevation={1} {...rest}>
       <BlockBoxHead
         title={title}
         subtitle={subtitle}

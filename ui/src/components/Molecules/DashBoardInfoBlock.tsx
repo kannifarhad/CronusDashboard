@@ -6,11 +6,11 @@ type Props = {
   description?: JSX.Element | string;
   foooterText: JSX.Element | string;
   color: string;
-  Component?: any;
+  children?: any;
 }
 
 
-export const DashBoardInfoBlock = ({ mainIcon, footerIcon, title, description, foooterText, color, Component }:Props) =>{
+export const DashBoardInfoBlock = ({ mainIcon, footerIcon, title, description, foooterText, color, children }:Props) =>{
   return (
     <div className="whiteBlock dashboardInfoBlock">
       <div className={`headContent ${color}`}>
@@ -24,7 +24,7 @@ export const DashBoardInfoBlock = ({ mainIcon, footerIcon, title, description, f
 
       <div className="clear"></div>
 
-      <div className="infoBlockContent">{Component && <Component />}</div>
+      <div className="infoBlockContent">{children}</div>
       <div className="infoFooter">
         <div className="iconFooter">
           <span className={footerIcon}></span>
