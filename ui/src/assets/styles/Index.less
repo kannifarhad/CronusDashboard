@@ -48,17 +48,7 @@ p {
 a:hover{
   color: @mainMiddleColor;
 }
-.whiteBlock {
-  display: flex;
-  flex-grow: 1;
-  flex-direction: column;
-  box-shadow: 0 0 13px 0 rgba(82, 63, 105, 0.05);
-  background-color: #fff;
-  border-radius: 4px;
-  .blockContent {
-    padding: 20px;
-  }
-}
+
 .blockHead {
   display: flex;
   align-items: stretch;
@@ -217,86 +207,6 @@ a:hover{
 .inlineFlexBox {
   display: flex;
 }
-
-.dashboardInfoBlock {
-  position: relative;
-  margin-top: 20px;
-  display: block;
-  .headContent {
-    float: left;
-    padding: 15px;
-    margin-top: -20px;
-    margin: -20px 15px 20px 15px;
-    border-radius: 3px;
-    background-color: #999;
-    flex-direction: column;
-
-    &.yellow {
-      background: linear-gradient(60deg, #ffa726, #fb8c00);
-      box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(255, 152, 0, 0.4);
-    }
-    &.green {
-      background: linear-gradient(60deg, #66bb6a, #43a047);
-      box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(76, 175, 80, 0.4);
-    }
-    &.red {
-      background: linear-gradient(60deg, #ef5350, #e53935);
-      box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(244, 67, 54, 0.4);
-    }
-    &.blue {
-      background: linear-gradient(60deg, #26c6da, #00acc1);
-      box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 172, 193, 0.4);
-    }
-    span.mainIcon {
-      width: 56px;
-      height: 56px;
-      overflow: unset;
-      font-size: 36px;
-      text-align: center;
-      line-height: 56px;
-      margin-bottom: 1px;
-      color: #fff;
-      display: block;
-    }
-  }
-
-  .infoText {
-    float: right;
-    padding: 1rem;
-    text-align: right;
-    &::after {
-      content: '';
-      clear: both;
-    }
-    .title {
-      font-size: 0.8em;
-      color: @infotextColor;
-    }
-    .description {
-      font-size: 1.5em;
-      color: @headlineColor;
-    }
-  }
-  .infoBlockContent {
-    margin: 0px 15px;
-  }
-  .infoFooter {
-    width: calc(100% - 30px);
-    border-top: 1px solid @backgroundDark;
-    padding: 0.5rem 0;
-    margin: 0px auto;
-    > div {
-      display: inline-block;
-      color: @infotextColor;
-      vertical-align: middle;
-      font-size: 0.7em;
-    }
-    .textFooter {
-      padding: 0 0.5rem;
-    }
-  }
-}
-
 
 .dialogBlock {
   .dialogTitle {
@@ -732,50 +642,6 @@ a:hover{
   justify-content: center;
 }
 
-.customIconButton {
-  &.noIcon {
-    padding-left: 25px !important;
-  }
-}
-
-.accessDenied {
-  border-radius: 5px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  border-bottom: 30px solid @headlineColor;
-  .image{
-    max-width: 600px;
-    min-width: 300px;
-    margin:0px auto;
-    width: 100%;
-    padding: 30px 30px 0px 30px;
-    img {
-      width: 100%;
-      display: block;
-      margin-bottom: -1px;
-
-    }
-  }
-  .texts{
-    text-align: center;
-    flex-grow: 1;
-    padding: 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-self: center;
-    h2{
-      color: @headlineColor;
-      font-size: 27px;
-    }
-    p{
-      color: @infotextColor;
-      font-size: 16px;
-    }
-  }
-}
 
 #langDropdown,
 #profileDropdown {

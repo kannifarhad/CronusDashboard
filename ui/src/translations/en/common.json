@@ -18,7 +18,7 @@
   "Yes":"Yes",
   "No":"No",
   "Please contact to administrator to get access.":"Please contact to administrator to get access.",
-  "This page exists but You don't have access to see it. You have to be in appropriate user group to get page.":"This page exists but You don't have access to see it. You have to be in appropriate user group to get page.",
+  "You’ve found the right page, but you don’t have the necessary permissions to view it. To access this page, you must be part of the appropriate user group.":"You’ve found the right page, but you don’t have the necessary permissions to view it. To access this page, you must be part of the appropriate user group.",
   "Go to Dashboard":"Go to Dashboard",
   "Access Denied":"Access Denied",
   "Drag 'n' drop some files here, or click to select files":"Drag 'n' drop some files here, or click to select files",

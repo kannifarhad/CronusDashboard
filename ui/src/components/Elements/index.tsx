@@ -23,6 +23,7 @@ export { default as FileInputField } from "./FileInputField";
 export { default as SearchInput } from "./SearchInput";
 export { default as PhoneField } from "./PhoneField";
 export { default as ListWithIcon } from "./ListWithIcon";
+export { default as ButtonWithSelect } from "./ButtonWithSelect";
 export * from "./ResultBox";
 export * from "./SearchInput";
 export * from "./Switch";

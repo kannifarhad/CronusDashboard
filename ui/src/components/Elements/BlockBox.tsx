@@ -17,7 +17,7 @@ const StyledBlockBoxHead = styled(Box)<{
     display: "flex",
     alignItems: "center",
     padding: "12px 20px",
-    borderBottom: `1px solid #ccc`,
+    borderBottom: `1px solid ${theme.customStyles.header.borderColor}`,
     gap:"20px",
     ".text": {
       display: "flex",

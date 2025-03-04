@@ -1,16 +1,16 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { InputAdornment } from "@mui/material";
 import { Box, Paper, TextField, Autocomplete, TextFieldProps, Popper } from "@mui/material";
-import { countriesArray, countriesByCode, CountryType } from "src/constants/countries";
+import { countriesArray, countriesByCode, CountryType, CountryCodesType } from "src/constants/countries";
 import { IMaskInput } from "react-imask";
 import { getCountryFlagIMG } from "src/utils";
 
 type PhoneNumberStateType = { country: CountryType | undefined; phoneNumber: string };
 
 export type PhoneFieldProps = {
-  excludeCountries?: CountryType["code"][];
-  onlyCountries?: CountryType["code"][];
-  defaultCountry?: CountryType["code"];
+  excludeCountries?: CountryCodesType[];
+  onlyCountries?: CountryCodesType[];
+  defaultCountry?: CountryCodesType;
   placeholder?: string;
   onChange: (props?: { country: CountryType; phoneNumber: string }) => void;
   value: string | undefined;
@@ -36,12 +36,12 @@ const InputGroup: React.FC<PhoneFieldProps> = ({ onChange, excludeCountries, onl
       const { country, phoneNumber } = parsePhoneNumber(value);
       return { country, phoneNumber };
     }
-    return { country: defaultCountry ? countriesByCode[defaultCountry] : undefined, phoneNumber: "" };
+    return { country: defaultCountry ? countriesByCode[defaultCountry] as CountryType : undefined, phoneNumber: "" };
   });
 
   const options: CountryType[] = useMemo(() => {
     if (onlyCountries && Array.isArray(onlyCountries)) {
-      return onlyCountries.map((code) => countriesByCode[code]);
+      return onlyCountries.map((code) => countriesByCode[code] as CountryType);
     }
     if (excludeCountries && Array.isArray(excludeCountries)) {
       return countriesArray.filter((cont) => !excludeCountries.includes(cont.code));

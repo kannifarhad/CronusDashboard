@@ -1,12 +1,6 @@
-export interface CountryType {
-  code: string;
-  label: string;
-  phone: string;
-  suggested?: boolean;
-  phoneMask?: string;
-}
 
-export const countriesByCode: { [key: string]: CountryType } = {
+
+export const countriesByCode = {
   AD: { code: "AD", label: "Andorra", phone: "376", phoneMask: "3##-###" },
   AE: { code: "AE", label: "United Arab Emirates", phone: "971", phoneMask: "5#-###-####" },
   AF: { code: "AF", label: "Afghanistan", phone: "93", phoneMask: "7##-###-###" },
@@ -257,4 +251,12 @@ export const countriesByCode: { [key: string]: CountryType } = {
   ZW: { code: "ZW", label: "Zimbabwe", phone: "263", phoneMask: "7#-###-####" },
 };
 
-export const countriesArray: CountryType[] = Object.values(countriesByCode);
+export type CountryCodesType = keyof typeof countriesByCode;
+export interface CountryType {
+  code: CountryCodesType;
+  label: string;
+  phone: string;
+  suggested?: boolean;
+  phoneMask?: string;
+}
+export const countriesArray: CountryType[] = Object.values(countriesByCode) as CountryType[];
