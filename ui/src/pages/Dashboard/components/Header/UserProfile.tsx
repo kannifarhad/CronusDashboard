@@ -98,11 +98,12 @@ function UserProfile() {
       <div className="headerUser">
         <Button
           onClick={handleClick}
-          variant="contained"
+          variant="text"
           sx={{
             borderRadius: "20px",
             fontSize: "13px",
             paddingRight: "10px !important",
+            border: "1px solid #d6dfef !important",
           }}
           iconright
           icon={<Avatar alt="Profile picture" src={user?.photo || undefined} sx={{ width: 24, height: 24 }} />}

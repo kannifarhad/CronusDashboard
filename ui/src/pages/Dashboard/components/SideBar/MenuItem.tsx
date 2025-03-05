@@ -1,7 +1,7 @@
-import React, { useRef, memo, useMemo, useCallback } from "react";
+import React, { useRef, memo, useMemo, useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
-import { List, ListItemButton, ListItem } from "@mui/material";
+import { List, ListItemButton as ListItem } from "@mui/material";
 import { SiteRoute } from "../../../../routes/types";
 
 interface MenuItemProps {
@@ -12,66 +12,67 @@ interface MenuItemProps {
 }
 
 const MenuItem: React.FC<MenuItemProps> = ({ item, currentUrl, userRole }) => {
-  const asideLeftLIRef = useRef<HTMLLIElement | null>(null);
-  const accessRole = item.accessRoles ?? [];
+  const [isOpen, setIsOpen] = useState(false);
+  const accessRoles = useMemo(() => item.accessRoles ?? [], [item.accessRoles]);
   const hasChildren = item.children.length > 0;
 
-  const isMenuItemActive = useCallback(
-    (menuItem: SiteRoute): boolean => {
+  const isActive = useMemo(() => {
+    const isMenuItemActive = (menuItem: SiteRoute): boolean => {
+      const menuItemPath = menuItem.getPath({});
+  
+      if (!menuItemPath) return false;
+  
       if (menuItem.children.length > 0) {
-        return menuItem.children.some(isMenuItemActive);
+        return (
+          currentUrl === menuItemPath || 
+          currentUrl.startsWith(menuItemPath + "/") || 
+          menuItem.children.some(isMenuItemActive)
+        );
       }
-      return currentUrl.includes(menuItem.getPath({}));
+  
+      return currentUrl === menuItemPath;
+    };
+  
+    return isMenuItemActive(item);
+  }, [currentUrl, item]);
+
+  const toggleMenu = useCallback(
+    (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (hasChildren) setIsOpen((prev) => !prev);
     },
-    [currentUrl]
+    [hasChildren]
   );
 
-  const isActive = useMemo(
-    () => isMenuItemActive(item),
-    [isMenuItemActive, item]
-  );
-
-  const handleMouseClick = useCallback(() => {
-    if (hasChildren && asideLeftLIRef.current) {
-      asideLeftLIRef.current.classList.toggle("open");
-    }
-  }, [hasChildren]);
-
-  if (
-    (userRole && accessRole.length > 0 && !accessRole.includes(userRole)) ||
-    !item.showInMenu
-  ) {
+  if ((userRole && accessRoles.length > 0 && !accessRoles.includes(userRole)) || !item.showInMenu) {
     return null;
   }
+
   return (
     <ListItem
-      ref={asideLeftLIRef}
+      component="li"
+      disableGutters
+      disableTouchRipple={isOpen}
+      selected={isActive}
       className={clsx("asideMenuItem", {
         asideMenuHasSubmenu: hasChildren,
-        open: isActive && hasChildren,
+        open: isOpen && hasChildren,
         active: isActive && !hasChildren,
         iconOnly: item["icon-only"] ?? false,
       })}
     >
       {hasChildren ? (
         <>
-          <ListItem
-            
-            className="asideMenuToggle"
-            onClick={handleMouseClick}
-          >
-            <div className="pseudoLink">
-              <MenuItemText item={item} />
-            </div>
-          </ListItem>
+          <div className="menulink" onClick={toggleMenu}>
+            <MenuItemText item={item} />
+          </div>
           <MenuSubmenu item={item} currentUrl={currentUrl} />
         </>
       ) : (
-        <ListItem>
-          <Link to={item.getPath({})}>
-            <MenuItemText item={item} />
-          </Link>
-        </ListItem>
+        <Link to={item.getPath({})} className="menulink">
+          <MenuItemText item={item} />
+        </Link>
       )}
     </ListItem>
   );
@@ -84,25 +85,17 @@ interface MenuSubmenuProps {
 
 const MenuSubmenu: React.FC<MenuSubmenuProps> = memo(({ item, currentUrl }) => (
   <List className="asideSubmenu">
-    {item.children.map((child, index) => (
-      <React.Fragment key={index}>
-        <MenuItem item={child} parentItem={item} currentUrl={currentUrl} />
-      </React.Fragment>
+    {item.children.map((child) => (
+      <MenuItem key={child.getPath({})} item={child} parentItem={item} currentUrl={currentUrl} />
     ))}
   </List>
 ));
 
 const MenuItemText: React.FC<{ item: SiteRoute }> = ({ item }) => (
   <>
-    {item.iconName ? (
-      <i className={`asideMenuIcon fad ${item.iconName}`} />
-    ) : (
-      <i className="asideDot"></i>
-    )}
-    <span className="asideTitle"> {item.title} </span>
-    {item.children.length > 0 && (
-      <i className="far fa-chevron-right iconArrow" />
-    )}
+    {item.iconName ? <i className={`asideMenuIcon fad ${item.iconName}`} /> : <i className="asideDot"></i>}
+    <span className="asideTitle">{item.title}</span>
+    {item.children.length > 0 && <i className="far fa-chevron-right iconArrow" />}
   </>
 );
 

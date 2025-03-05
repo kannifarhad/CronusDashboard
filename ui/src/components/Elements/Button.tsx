@@ -7,7 +7,7 @@ import { Theme } from "@mui/material/styles";
 
 export type ButtonPropsType = {
   title?: string | JSX.Element;
-  color?: ButtonProps['color'] | 'red' | 'purple' | 'yellow' | 'orange' | 'green' | 'gray' | 'default';
+  color?: ButtonProps["color"] | "red" | "purple" | "yellow" | "orange" | "green" | "gray" | "default";
   icon?: JSX.Element | boolean;
   disableElevation?: boolean;
   fullWidth?: boolean;
@@ -21,15 +21,17 @@ export type ButtonPropsType = {
 
 export const StyledButton = styled(ButtonMui, {
   shouldForwardProp: (prop) => prop !== "colorType",
-})<{ colorType: ButtonPropsType["color"]; theme?: Theme }>(
-  ({ theme, colorType = "default" }) => {
-     const { background, hover } = theme.customStyles.buttons.colors[colorType] || theme.customStyles.buttons.colors.default;
+})<{ colorType: ButtonPropsType["color"]; theme?: Theme }>(({ theme, colorType = "default" }) => {
+  const { background, hover } = theme.customStyles.buttons.colors[colorType] || theme.customStyles.buttons.colors.default;
 
   return {
     backgroundColor: background,
     color: "#fff",
     borderColor: background,
     padding: "7px 20px",
+    "&.MuiButton-sizeSmall": {
+      padding: "5px 15px",
+    },
     ".buttonBase": {
       display: "flex",
       alignItems: "center",
@@ -47,6 +49,18 @@ export const StyledButton = styled(ButtonMui, {
     "&.MuiButton-outlined": {
       backgroundColor: "transparent",
       color: background,
+      borderColor: background,
+      "&:hover": {
+        backgroundColor: background,
+        color: "#fff",
+      },
+    },
+    "&.MuiButton-contained": {
+      border: `1px solid ${background} !important`,
+    },
+    "&.MuiButton-text": {
+      backgroundColor: "transparent",
+      color: background,
       "&:hover": {
         backgroundColor: background,
         color: "#fff",
@@ -55,20 +69,7 @@ export const StyledButton = styled(ButtonMui, {
   };
 });
 
-export const Button: React.FC<ButtonPropsType> = ({
-  title,
-  color,
-  icon,
-  iconright,
-  onClick,
-  loading,
-  children,
-  variant = "outlined",
-  to,
-  sx,
-  disabled,
-  ...rest
-}) => {
+export const Button: React.FC<ButtonPropsType> = ({ title, color, icon, iconright, onClick, loading, children, variant = "outlined", to, sx, disabled, ...rest }) => {
   const navigate = useNavigate();
   const handleOnClick = to ? () => navigate(to) : onClick;
 

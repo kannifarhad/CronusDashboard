@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
 
 export const StyledActionPopover = styled.div`
-  width: 325px;
-  height: 150px;
+  width: 375px;
   overflow: hidden;
   position: relative;
 
@@ -14,28 +13,40 @@ export const StyledActionPopover = styled.div`
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-    padding: 10px;
+    padding: 15px;
     .popoverInfo {
       display: flex;
       align-items: center;
+      .icon {
+        min-width: 80px;
+        min-height: 80px;
+        height: auto;
+        width: 80px;
+        display: flex;
+        align-items: center;
+      }
     }
     .popoverMessage {
+      padding-left: 10px;
       h4 {
-        font-size: 16px;
+        font-size: 17px;
+        line-height: 110%;
         margin: 0px;
         margin-bottom: 5px;
-        font-weight: 500;
+        font-weight: 600;
       }
       p {
-        font-size: 12px;
+        font-size: 11px;
+        line-height: 110%;
       }
       text-align: left;
     }
 
     .popoverActions {
+      width: 100%;
       display: flex;
-      margin-top: auto;
-      gap: 10px;
+      justify-content: flex-end;
+      padding-top: 10px;
     }
   }
 

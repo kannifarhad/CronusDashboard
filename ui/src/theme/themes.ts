@@ -36,6 +36,19 @@ export const lightTheme: Theme = createTheme(
       },
       components: {
         // ...componentsOverride,
+        MuiPaper: {
+          styleOverrides: {
+            elevation1: {
+              boxShadow: "0 0 13px 0 rgba(45, 45, 75, 0.05)",
+            },
+            elevation2: {
+              boxShadow: "0 0 13px 0 rgba(45, 45, 75, 0.19)",
+            },
+            rounded: {
+              borderRadius: "7px",
+            },
+          },
+        },
         MuiButton: {
           styleOverrides: {
             root: {
@@ -68,6 +81,15 @@ export const darkTheme: Theme = createTheme(
           styleOverrides: {
             root: {
               background: "#364553",
+            },
+            elevation1: {
+              boxShadow: "0 0 13px 0 rgba(45, 45, 75, 0.05)",
+            },
+            elevation2: {
+              boxShadow: "0 0 13px 0 rgba(28, 28, 35, 0.57)",
+            },
+            rounded: {
+              borderRadius: "7px",
             },
           },
         },

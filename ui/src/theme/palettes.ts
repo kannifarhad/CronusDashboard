@@ -97,7 +97,7 @@ export const darkPalette: ThemeCollectionType = deepmerge(defaultPallete, {
     main: colorCollection.lightGrey.dark,
   },
   buttons:{
-    outlineBg: colorCollection.black.dark,
+    outlineBg: colorCollection.black.main,
     border: colorCollection.darkGrey.dark,
   },
 });

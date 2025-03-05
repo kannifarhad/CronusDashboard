@@ -14,16 +14,6 @@ const componentsOverride: Components<Omit<Theme, "components">> = {
       },
     },
   },
-  MuiPaper:{
-    styleOverrides:{
-      elevation1:{
-        boxShadow: "0 0 13px 0 rgba(45, 45, 75, 0.05)",
-      },
-      rounded:{
-        borderRadius:"7px"
-      }
-    }
-  },
   MuiButtonBase: {
     styleOverrides: {
       root: {

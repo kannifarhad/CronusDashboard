@@ -16,7 +16,7 @@ const MenuBar = () => {
 
   return (
     <StyledSideMenuCont sidebarCollapsed={sidebarCollapsed} className={classNames({"sideMenuMimimise": !sidebarCollapsed})}>
-      <List className="asideMenuUl">
+      <List className="asideMenuUl" >
         {Object.entries(SidebarRoutes).map(([index, item]) => (
           <React.Fragment key={`menuList${index}`}>
             <MenuItem item={item} currentUrl={pathname} userRole={me?.role} />
