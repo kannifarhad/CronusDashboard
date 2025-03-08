@@ -1,145 +1,110 @@
-import React, { useEffect, useState } from "react";
-import {
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  Select,
-  MenuItem,
-  ListSubheader,
-  SelectProps
-} from "@mui/material";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
+import { FormControl, FormHelperText, InputLabel, Select, MenuItem, ListSubheader, SelectProps, SelectChangeEvent } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import _ from "lodash";
-import { makeStyles } from '@mui/styles';
-import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
+import { Trans } from "react-i18next";
 
 const useStyles = makeStyles({
-  root: {
-    width: "100%",
-  },
-  outlined: {
-    transform: "translate(14px, 16px) scale(1)",
-  },
-  shrink: {
-    transform: "translate(14px, -6px) scale(0.75)",
-  },
+  root: { width: "100%" },
+  outlined: { transform: "translate(14px, 16px) scale(1)" },
+  shrink: { transform: "translate(14px, -6px) scale(0.75)" },
 });
 
+interface SelectItem {
+  type?: "group";
+  title?: string;
+  [key: string]: any;
+}
 
-interface UISimpleSelect extends SelectProps {
+type UISimpleSelect = Omit<SelectProps, 'onChange'> & {
   id?: string;
-  items: any[] ;
-  value?: number | string | string[] | boolean | null | undefined;
+  items: SelectItem[];
+  value?: string | number | string[] | boolean | null | undefined;
   valueKey?: string;
   className?: string;
   helperText?: string;
-  optionRender?: (item: any) => string | ReactJSXElement;
-  onChange?: (p: any) => any;
+  optionRender?: (item: SelectItem) => string | React.ReactNode;
+  onChange?: (value: any) => void;
   error?: boolean;
-  label?: JSX.Element | string;
+  label?: string | React.ReactNode;
   labelId?: string;
-}
+};
 
-type UIFunctions = {
-  handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  generateValues: (valueArg: any) => any;
-  initValues: (valueArg: any) => any;
-  optionTitleGet: (option: any) => string;
-  optionValueGet: (option: any) => string;
-}
-
-const SimpleSelect: React.FC<UISimpleSelect> = (props) => {
-  const { items, className, helperText, valueKey, value, label, labelId, variant, optionRender, onChange, error, ...rest } = props;
-
-  const [innerValue, setInnerValue] = useState<UISimpleSelect['value']>(value);
-
+const SimpleSelect: React.FC<UISimpleSelect> = ({ items, className, helperText, valueKey, value, label, labelId, variant, optionRender, onChange, error, ...rest }) => {
   const classes = useStyles();
+  const outlinedClasses = variant === "outlined" ? { root: classes.outlined, shrink: classes.shrink } : {};
 
-  const outlinedClasses = variant === "outlined"
-      ? { root: classes.outlined, shrink: classes.shrink }
-      : {};
+  const [innerValue, setInnerValue] = useState(value);
 
-  const operations: UIFunctions = {
-    handleChange: (event) => {
-      setInnerValue(event.target.value);
-      onChange && onChange(operations.generateValues(event.target.value));
+  /** Generates the display title for a dropdown option */
+  const getOptionTitle = useCallback(
+    (option: SelectItem) => {
+      return optionRender ? optionRender(option) : option.title || "Invalid option";
     },
+    [optionRender]
+  );
 
-    generateValues: (valueArg) => {
-      return valueKey ? _.result(_.find(items, [[valueKey], valueArg]), [valueKey], null) : valueArg;
-    },
-
-    initValues: (valueArg) => {
-      if (valueArg == null) return '';
-
-      if (valueKey) {
-        return _.result(_.find(items, function(o) { return o[valueKey] == valueArg } ), [valueKey]);
-      }
-      else {
-        return _.result(_.filter(items, function (v) { return v === valueArg }), 0, null)
-      }
-    },
-
-    optionTitleGet: (option) => {
-      return optionRender
-        ? optionRender(option)
-        : option.title
-          ? option.title
-          : "Wrong options format.";
-    },
-
-    /**
-     * valueKey qeyd edilibse item obyektinden [valuKey] property-si goturulur
-     * valueKey qeyd edilmeyibse items arrayinda option-un index-i
-     */
-    optionValueGet: (option) => {
-      return valueKey
-        ?
-        option[valueKey]
-        :
-        items.indexOf(option)
-    },
+  /** Handles value change */
+  const handleChange = (event: SelectChangeEvent<unknown>) => {
+    const newValue = event.target.value as string | number | boolean | string[] | null | undefined;
+    setInnerValue(newValue);
+    console.log("New Value:", newValue);
+    if (onChange) {
+      onChange(findMatchingValue(newValue));
+    }
   };
 
+  const findMatchingValue = useCallback(
+    (val: any) => {
+      if (!valueKey) return (items ?? []).includes(val) ? val : "";
+
+    const matchedItem = (items ?? []).find((item) => item[valueKey] === val);
+    return matchedItem ? matchedItem[valueKey] : "";
+    },
+    [items, valueKey]
+  );
+  
+  const getOptionValue = useCallback(
+    (option: SelectItem) => {
+      return valueKey && option[valueKey] !== undefined ? option[valueKey] : option;
+    },
+    [valueKey]
+  );
+  
   useEffect(() => {
-    setInnerValue(operations.initValues(value));
-
-  }, [value]);
-
+    console.log("Updated Value:", value, "Available Options:", items);
+    setInnerValue(findMatchingValue(value));
+  }, [value, items, findMatchingValue]);
 
   return (
-    <FormControl className={`${classes.root} ${className}`} error={error}    >
-      <InputLabel id={labelId} classes={outlinedClasses}>
-        {label}
-      </InputLabel>
+    <FormControl className={`${classes.root} ${className || ""}`} error={error} required={rest.required}>
+      {label && (
+        <InputLabel id={labelId} classes={outlinedClasses}>
+          {label}
+        </InputLabel>
+      )}
 
-      <Select 
-        className={classes.root}
-        onChange={(e: any) => operations.handleChange(e)}
-        value={innerValue ?? ''}
-        label={label}
-        error={error}
-        {...rest}
-      >
-        {items && items.map((item: { type: string; title?: string; }, index: React.Key) => {
-          return item.type && item.type === "group" ? (
-            <ListSubheader color="primary" key={index} >
-              {item.title}
-            </ListSubheader>
-          ) : (
-            <MenuItem
-              key={index}
-              value={operations.optionValueGet(item)}
-            >
-              {operations.optionTitleGet(item)}
-            </MenuItem>
-          );
-        })}
+      <Select className={classes.root} onChange={handleChange} value={innerValue ?? ""} label={label} error={error} {...rest}>
+        {Array.isArray(items) ? (
+          items.map((item, index) =>
+            item.type === "group" ? (
+              <ListSubheader key={index} color="primary">
+                {item.title}
+              </ListSubheader>
+            ) : (
+              <MenuItem key={index} value={getOptionValue(item)}>
+                {getOptionTitle(item)}
+              </MenuItem>
+            )
+          )
+        ) : (
+          <MenuItem disabled><Trans>No options available</Trans></MenuItem>
+        )}
       </Select>
-      <FormHelperText>{helperText}</FormHelperText>
+
+      {helperText && <FormHelperText>{helperText}</FormHelperText>}
     </FormControl>
-
-
   );
 };
 
-export default SimpleSelect
+export default SimpleSelect;

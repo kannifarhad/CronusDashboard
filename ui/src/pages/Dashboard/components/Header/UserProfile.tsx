@@ -103,7 +103,7 @@ function UserProfile() {
             borderRadius: "20px",
             fontSize: "13px",
             paddingRight: "10px !important",
-            border: "1px solid #d6dfef !important",
+            border: "1px solid #e4eaf557 !important",
           }}
           iconright
           icon={<Avatar alt="Profile picture" src={user?.photo || undefined} sx={{ width: 24, height: 24 }} />}

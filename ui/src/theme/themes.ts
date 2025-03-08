@@ -39,10 +39,10 @@ export const lightTheme: Theme = createTheme(
         MuiPaper: {
           styleOverrides: {
             elevation1: {
-              boxShadow: "0 0 13px 0 rgba(45, 45, 75, 0.05)",
+              boxShadow: lightPalette.boxShadows.levelOne,
             },
             elevation2: {
-              boxShadow: "0 0 13px 0 rgba(45, 45, 75, 0.19)",
+              boxShadow: lightPalette.boxShadows.levelTwo,
             },
             rounded: {
               borderRadius: "7px",
@@ -54,10 +54,10 @@ export const lightTheme: Theme = createTheme(
             root: {
               cursor: "pointer",
             },
-            outlined: {
-              borderColor: lightPalette.colors.default.light,
-              backgroundColor: lightPalette.backgroundColor,
-            },
+            // outlined: {
+            //   borderColor: lightPalette.colors.default.light,
+            //   backgroundColor: lightPalette.backgroundColor,
+            // },
           },
         },
       },
@@ -83,10 +83,10 @@ export const darkTheme: Theme = createTheme(
               background: "#364553",
             },
             elevation1: {
-              boxShadow: "0 0 13px 0 rgba(45, 45, 75, 0.05)",
+              boxShadow: darkPalette.boxShadows.levelOne,
             },
             elevation2: {
-              boxShadow: "0 0 13px 0 rgba(28, 28, 35, 0.57)",
+              boxShadow: darkPalette.boxShadows.levelTwo,
             },
             rounded: {
               borderRadius: "7px",

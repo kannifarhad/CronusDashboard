@@ -31,6 +31,10 @@ export const defaultPallete = {
   borderRadius: "5px",
   colors: colorCollection,
   animations,
+  boxShadows:{
+    levelOne: "0 0 13px 0 rgba(45, 45, 75, 0.05)",
+    levelTwo: "0 0 13px 0 rgba(45, 45, 75, 0.19)"
+  },
   buttons: {
     outlineBg: colorCollection?.lightGrey?.main,
     border: colorCollection?.lightGrey?.dark,
@@ -81,6 +85,10 @@ export const lightPalette = defaultPallete;
 export const darkPalette: ThemeCollectionType = deepmerge(defaultPallete, {
   backgroundColor: colorCollection.black.dark,
   dashboarContinaerBg: "#2f3b46",
+  boxShadows:{
+    levelOne: "0 0 13px 0 rgba(45, 45, 75, 0.05)",
+    levelTwo: "0 0 13px 0 rgba(28, 28, 35, 0.57)",
+  },
   header: {
     background: colorCollection.black.main,
     borderColor: colorCollection.darkGrey.dark,

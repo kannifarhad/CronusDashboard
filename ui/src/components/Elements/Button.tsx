@@ -41,6 +41,7 @@ export const StyledButton = styled(ButtonMui, {
         lineHeight: "18px",
       },
     },
+
     "&:hover, &.active": {
       backgroundColor: hover,
       borderColor: background,
@@ -56,7 +57,10 @@ export const StyledButton = styled(ButtonMui, {
       },
     },
     "&.MuiButton-contained": {
-      border: `1px solid ${background} !important`,
+      border: `1px solid ${background}`,
+      '&[disabled]': {
+        border: "1px solid rgba(0, 0, 0, 0.12)",
+      },
     },
     "&.MuiButton-text": {
       backgroundColor: "transparent",

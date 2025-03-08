@@ -5,16 +5,16 @@ export const StyledAuthPage = styled.div<{
   theme?: Theme;
 }>(({ theme }) => {
   return {
-    minHeight: "100%",
+    minHeight: "600px",
+    height: "100%",
     display: "flex",
-    height: "100vh",
+    // height: "100vh",
     flexDirection: "row",
     "> div": {
-      padding: "50px",
       display: "flex",
       justifyContent: "center",
       flexDirection: "column",
-      height: "100vh",
+      // height: "100vh",
     },
 
     ".loginInfo": {

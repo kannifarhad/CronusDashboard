@@ -8,6 +8,7 @@ import Login from './pages/Dashboard/AuthPage';
 import { ProtectedRoute, PublicRoute } from './routes/RouteTypes';
 import DynamicImport from './components/Molecules/DynamicImport';
 import NotFound from './pages/Dashboard/NotFound';
+import ToasterMessages from "./pages/Dashboard/components/ToasterMessages";
 
 type RenderRoutesProps = { routes: SiteRoute[], parentRoute?: string };
 
@@ -56,6 +57,7 @@ const renderRoutes = ({ routes, parentRoute }: RenderRoutesProps) => {
 const App = () => {
   return (
     <ApolloProvider client={apolloClient}>
+      <ToasterMessages />
       <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <Routes>
           <Route

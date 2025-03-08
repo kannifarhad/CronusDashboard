@@ -1,6 +1,14 @@
 import styled from "@emotion/styled";
 import { Theme } from "@mui/material/styles";
 
+export const StyledToasterMessages = styled('div')(({}) => ({
+  zIndex: "9999",
+  position: "fixed",
+  bottom: "60px",
+  right: "20px",
+  width: "300px",
+}));
+
 export const StyledDashboardSubHeader = styled.div<{
   theme?: Theme;
 }>(({ theme }) => {

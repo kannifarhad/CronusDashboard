@@ -19,7 +19,7 @@ const UserAddForm: React.FC<{
     handleSubmit,
     watch,
     setValue,
-    formState: { errors },
+    formState: { errors, isValid, isLoading },
   } = useForm<AddUserType>({
     resolver: yupResolver(addUserSchema),
     defaultValues: {
@@ -61,6 +61,15 @@ const UserAddForm: React.FC<{
       });
   };
 
+  const isFieldRequired = (fieldName: keyof AddUserType) => {
+    const field = addUserSchema.fields[fieldName];
+
+    // Type assertion to ensure TypeScript knows `tests` exist
+    const description = field?.describe() as { tests?: { name: string }[] };
+
+    return description.tests?.some((test) => test.name === "required") ?? false;
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={2}>
@@ -68,14 +77,20 @@ const UserAddForm: React.FC<{
           <BlockBox title="Main Information" subtitle="The required fields must be filled." icon={<span className="fad fa-id-badge" />}>
             <Grid container spacing={2} style={{ padding: "20px" }}>
               <Grid size={6}>
-                <Controller name="name" control={control} render={({ field }) => <InputField {...field} label="Full name" error={!!errors.name} helperText={errors.name?.message} />} />
+                <Controller
+                  name="name"
+                  control={control}
+                  render={({ field }) => <InputField {...field} required={isFieldRequired("name")} label="Full name" error={!!errors.name} helperText={errors.name?.message} />}
+                />
               </Grid>
 
               <Grid size={6}>
                 <Controller
                   name="login"
                   control={control}
-                  render={({ field }) => <InputField {...field} label="E-mail" error={!!errors.login} helperText={errors.login?.message || "This would be used as login as well"} />}
+                  render={({ field }) => (
+                    <InputField {...field} required={isFieldRequired("login")} label="E-mail" error={!!errors.login} helperText={errors.login?.message || "This would be used as login as well"} />
+                  )}
                 />
               </Grid>
 
@@ -90,6 +105,7 @@ const UserAddForm: React.FC<{
                       error={!!errors.phone}
                       helperText={errors.phone?.message}
                       defaultCountry="US"
+                      required={isFieldRequired("phone")}
                       onChange={(phone) => field.onChange(phone ? `${phone.country.code}${phone.phoneNumber}` : null)}
                     />
                   )}
@@ -97,7 +113,11 @@ const UserAddForm: React.FC<{
               </Grid>
 
               <Grid size={6}>
-                <Controller name="address" control={control} render={({ field }) => <InputField {...field} label="Address" error={!!errors.address} helperText={errors.address?.message} />} />
+                <Controller
+                  name="address"
+                  control={control}
+                  render={({ field }) => <InputField {...field} label="Address" required={isFieldRequired("address")} error={!!errors.address} helperText={errors.address?.message} />}
+                />
               </Grid>
 
               <Grid>
@@ -108,7 +128,7 @@ const UserAddForm: React.FC<{
                 <Controller
                   name="about"
                   control={control}
-                  render={({ field }) => <InputField {...field} label="About" rows={4} multiline error={!!errors.about} helperText={errors.about?.message} />}
+                  render={({ field }) => <InputField {...field} label="About" required={isFieldRequired("about")} rows={4} multiline error={!!errors.about} helperText={errors.about?.message} />}
                 />
               </Grid>
             </Grid>
@@ -135,8 +155,10 @@ const UserAddForm: React.FC<{
                           title: "Deactive",
                         },
                       ]}
+                      valueKey="value"
                       label="Status"
                       helperText={errors.status?.message}
+                      required={isFieldRequired("status")}
                       error={!!errors.status}
                     />
                   )}
@@ -160,8 +182,10 @@ const UserAddForm: React.FC<{
                         },
                       ]}
                       label="Role"
+                      valueKey="value"
                       helperText={errors.role?.message || "Depending on role additional data may be required"}
                       error={!!errors.role}
+                      required={isFieldRequired("role")}
                     />
                   )}
                 />
@@ -174,6 +198,7 @@ const UserAddForm: React.FC<{
                     <SimpleSelect
                       {...field}
                       items={userGroupsList}
+                      required={isFieldRequired("groupId")}
                       label="User Group"
                       helperText={errors.groupId?.message || "This would help define access to the system modules"}
                       error={!!errors.groupId}
@@ -186,7 +211,15 @@ const UserAddForm: React.FC<{
                 <Controller
                   name="password"
                   control={control}
-                  render={({ field }) => <PasswordField {...field} label="Password" error={!!errors.password} helperText={errors.password?.message || "Should be at least 8 symbols"} />}
+                  render={({ field }) => (
+                    <PasswordField
+                      {...field}
+                      required={isFieldRequired("password")}
+                      label="Password"
+                      error={!!errors.password}
+                      helperText={errors.password?.message || "Should be at least 8 symbols"}
+                    />
+                  )}
                 />
               </Grid>
 
@@ -194,7 +227,9 @@ const UserAddForm: React.FC<{
                 <Controller
                   name="passwordRepeat"
                   control={control}
-                  render={({ field }) => <PasswordField {...field} label="Repeat Password" error={!!errors.passwordRepeat} helperText={errors.passwordRepeat?.message} />}
+                  render={({ field }) => (
+                    <PasswordField {...field} required={isFieldRequired("passwordRepeat")} label="Repeat Password" error={!!errors.passwordRepeat} helperText={errors.passwordRepeat?.message} />
+                  )}
                 />
               </Grid>
             </Grid>
@@ -209,7 +244,8 @@ const UserAddForm: React.FC<{
                   type: "submit",
                   variant: "contained",
                   title: "Save and Quit",
-                  loading: false,
+                  loading: isLoading,
+                  disabled: !isValid || isLoading,
                   color: "green",
                   icon: <span className="fa fa-save" />,
                   onClick: handleSubmit(onSubmit),

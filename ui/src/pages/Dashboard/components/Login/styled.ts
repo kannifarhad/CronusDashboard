@@ -1,6 +1,4 @@
-import styled from "@emotion/styled";
-import { css } from "@emotion/react";
-import { Theme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import { Box, Divider } from "@mui/material";
 import { Link } from "react-router-dom";
 
@@ -9,7 +7,8 @@ export const LoginBlock = styled(Box)`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100%;
+  padding: 20px;
   margin: 0px auto;
   max-width: 500px;
   width: 100%;
@@ -23,7 +22,7 @@ export const LoginForm = styled(Box)`
   width: 100%;
 `;
 
-export const Title = styled.div`
+export const Title = styled(Box)`
   text-align: center;
   margin-bottom: 20px;
 
